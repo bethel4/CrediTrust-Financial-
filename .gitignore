@@ -1,0 +1,23 @@
+# Data files
+/data/raw/
+/data/processed/
+
+# Vector store and embeddings
+/vector_store/
+
+# Jupyter notebook checkpoints
+notebooks/.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Model caches
+/.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
