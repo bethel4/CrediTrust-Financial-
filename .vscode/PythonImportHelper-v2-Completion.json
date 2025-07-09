@@ -1,0 +1,436 @@
+[
+    {
+        "label": "streamlit",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "streamlit",
+        "description": "streamlit",
+        "detail": "streamlit",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "answer_question",
+        "importPath": "rag_pipeline",
+        "description": "rag_pipeline",
+        "isExtraImport": true,
+        "detail": "rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "numpy",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "numpy",
+        "description": "numpy",
+        "detail": "numpy",
+        "documentation": {}
+    },
+    {
+        "label": "faiss",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "faiss",
+        "description": "faiss",
+        "detail": "faiss",
+        "documentation": {}
+    },
+    {
+        "label": "pickle",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pickle",
+        "description": "pickle",
+        "detail": "pickle",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "SentenceTransformer",
+        "importPath": "sentence_transformers",
+        "description": "sentence_transformers",
+        "isExtraImport": true,
+        "detail": "sentence_transformers",
+        "documentation": {}
+    },
+    {
+        "label": "pipeline",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "pipeline",
+        "importPath": "transformers",
+        "description": "transformers",
+        "isExtraImport": true,
+        "detail": "transformers",
+        "documentation": {}
+    },
+    {
+        "label": "pandas",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pandas",
+        "description": "pandas",
+        "detail": "pandas",
+        "documentation": {}
+    },
+    {
+        "label": "RecursiveCharacterTextSplitter",
+        "importPath": "langchain.text_splitter",
+        "description": "langchain.text_splitter",
+        "isExtraImport": true,
+        "detail": "langchain.text_splitter",
+        "documentation": {}
+    },
+    {
+        "label": "load_vector_store",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)\n# Embed a query\ndef embed_query(model, query):",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "load_embedding_model",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)\n# Embed a query\ndef embed_query(model, query):\n    return model.encode([query])[0].astype('float32')\n# Retrieve top-k relevant chunks\ndef retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "embed_query",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def embed_query(model, query):\n    return model.encode([query])[0].astype('float32')\n# Retrieve top-k relevant chunks\ndef retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)\n    D, I = index.search(np.array([query_vec]), k)\n    retrieved = [metadata[i] for i in I[0]]\n    return retrieved",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve_chunks",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)\n    D, I = index.search(np.array([query_vec]), k)\n    retrieved = [metadata[i] for i in I[0]]\n    return retrieved\n# Prompt template\ndef build_prompt(context_chunks, question):\n    context = '\\n---\\n'.join([c['chunk'] for c in context_chunks])",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "build_prompt",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def build_prompt(context_chunks, question):\n    context = '\\n---\\n'.join([c['chunk'] for c in context_chunks])\n    prompt = (\n        \"You are a financial analyst assistant for CrediTrust. \"\n        \"Your task is to answer questions about customer complaints. \"\n        \"Use the following retrieved complaint excerpts to formulate your answer. \"\n        \"If the context doesn't contain the answer, state that you don't have enough information.\\n\"\n        f\"Context:\\n{context}\\n\"\n        f\"Question: {question}\\n\"\n        \"Answer:\"",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "load_generator",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def load_generator():\n    return pipeline('text-generation', model='distilgpt2', max_length=256)\n# RAG pipeline function\ndef answer_question(question, k=5):\n    retrieved_chunks = retrieve_chunks(question, k)\n    prompt = build_prompt(retrieved_chunks, question)\n    generator = load_generator()\n    response = generator(prompt, num_return_sequences=1)[0]['generated_text']\n    # Extract only the answer part (after 'Answer:')\n    answer = response.split('Answer:')[-1].strip()",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "answer_question",
+        "kind": 2,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "def answer_question(question, k=5):\n    retrieved_chunks = retrieve_chunks(question, k)\n    prompt = build_prompt(retrieved_chunks, question)\n    generator = load_generator()\n    response = generator(prompt, num_return_sequences=1)[0]['generated_text']\n    # Extract only the answer part (after 'Answer:')\n    answer = response.split('Answer:')[-1].strip()\n    return {\n        'question': question,\n        'answer': answer,",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "INDEX_PATH",
+        "kind": 5,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "INDEX_PATH = 'vector_store/faiss_index.bin'\nMETADATA_PATH = 'vector_store/metadata.pkl'\nEMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "METADATA_PATH",
+        "kind": 5,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "METADATA_PATH = 'vector_store/metadata.pkl'\nEMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "EMBEDDING_MODEL_NAME",
+        "kind": 5,
+        "importPath": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "description": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "peekOfCode": "EMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)",
+        "detail": "src..ipynb_checkpoints.rag_pipeline-checkpoint",
+        "documentation": {}
+    },
+    {
+        "label": "DATA_PATH",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "DATA_PATH = 'data/processed/filtered_complaints.csv'\nVECTOR_STORE_DIR = 'vector_store'\nINDEX_PATH = os.path.join(VECTOR_STORE_DIR, 'faiss_index.bin')\nMETADATA_PATH = os.path.join(VECTOR_STORE_DIR, 'metadata.pkl')\n# Ensure output directory exists\nos.makedirs(VECTOR_STORE_DIR, exist_ok=True)\n# 1. Load cleaned data\ndf = pd.read_csv(DATA_PATH)\n# 2. Chunking strategy\nchunk_size = 512",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "VECTOR_STORE_DIR",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "VECTOR_STORE_DIR = 'vector_store'\nINDEX_PATH = os.path.join(VECTOR_STORE_DIR, 'faiss_index.bin')\nMETADATA_PATH = os.path.join(VECTOR_STORE_DIR, 'metadata.pkl')\n# Ensure output directory exists\nos.makedirs(VECTOR_STORE_DIR, exist_ok=True)\n# 1. Load cleaned data\ndf = pd.read_csv(DATA_PATH)\n# 2. Chunking strategy\nchunk_size = 512\nchunk_overlap = 50",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "INDEX_PATH",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "INDEX_PATH = os.path.join(VECTOR_STORE_DIR, 'faiss_index.bin')\nMETADATA_PATH = os.path.join(VECTOR_STORE_DIR, 'metadata.pkl')\n# Ensure output directory exists\nos.makedirs(VECTOR_STORE_DIR, exist_ok=True)\n# 1. Load cleaned data\ndf = pd.read_csv(DATA_PATH)\n# 2. Chunking strategy\nchunk_size = 512\nchunk_overlap = 50\ntext_splitter = RecursiveCharacterTextSplitter(",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "METADATA_PATH",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "METADATA_PATH = os.path.join(VECTOR_STORE_DIR, 'metadata.pkl')\n# Ensure output directory exists\nos.makedirs(VECTOR_STORE_DIR, exist_ok=True)\n# 1. Load cleaned data\ndf = pd.read_csv(DATA_PATH)\n# 2. Chunking strategy\nchunk_size = 512\nchunk_overlap = 50\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=chunk_size,",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "df",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "df = pd.read_csv(DATA_PATH)\n# 2. Chunking strategy\nchunk_size = 512\nchunk_overlap = 50\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=chunk_size,\n    chunk_overlap=chunk_overlap\n)\nchunks = []\nfor idx, row in df.iterrows():",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "chunk_size",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "chunk_size = 512\nchunk_overlap = 50\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=chunk_size,\n    chunk_overlap=chunk_overlap\n)\nchunks = []\nfor idx, row in df.iterrows():\n    for chunk in text_splitter.split_text(str(row['cleaned_narrative'])):\n        chunks.append({",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "chunk_overlap",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "chunk_overlap = 50\ntext_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=chunk_size,\n    chunk_overlap=chunk_overlap\n)\nchunks = []\nfor idx, row in df.iterrows():\n    for chunk in text_splitter.split_text(str(row['cleaned_narrative'])):\n        chunks.append({\n            'complaint_id': row['Complaint ID'],",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "text_splitter",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "text_splitter = RecursiveCharacterTextSplitter(\n    chunk_size=chunk_size,\n    chunk_overlap=chunk_overlap\n)\nchunks = []\nfor idx, row in df.iterrows():\n    for chunk in text_splitter.split_text(str(row['cleaned_narrative'])):\n        chunks.append({\n            'complaint_id': row['Complaint ID'],\n            'product': row['Product'],",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "chunks",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "chunks = []\nfor idx, row in df.iterrows():\n    for chunk in text_splitter.split_text(str(row['cleaned_narrative'])):\n        chunks.append({\n            'complaint_id': row['Complaint ID'],\n            'product': row['Product'],\n            'chunk': chunk\n        })\n# 3. Load embedding model\nmodel = SentenceTransformer('all-MiniLM-L6-v2')",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "model",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "model = SentenceTransformer('all-MiniLM-L6-v2')\n# 4. Generate embeddings\ntexts = [c['chunk'] for c in chunks]\nembeddings = model.encode(texts, show_progress_bar=True, batch_size=64)\nembeddings = np.array(embeddings).astype('float32')\n# 5. Create FAISS index\ndimension = embeddings.shape[1]\nindex = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "texts",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "texts = [c['chunk'] for c in chunks]\nembeddings = model.encode(texts, show_progress_bar=True, batch_size=64)\nembeddings = np.array(embeddings).astype('float32')\n# 5. Create FAISS index\ndimension = embeddings.shape[1]\nindex = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata\nfaiss.write_index(index, INDEX_PATH)\nwith open(METADATA_PATH, 'wb') as f:",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "embeddings",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "embeddings = model.encode(texts, show_progress_bar=True, batch_size=64)\nembeddings = np.array(embeddings).astype('float32')\n# 5. Create FAISS index\ndimension = embeddings.shape[1]\nindex = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata\nfaiss.write_index(index, INDEX_PATH)\nwith open(METADATA_PATH, 'wb') as f:\n    pickle.dump([",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "embeddings",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "embeddings = np.array(embeddings).astype('float32')\n# 5. Create FAISS index\ndimension = embeddings.shape[1]\nindex = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata\nfaiss.write_index(index, INDEX_PATH)\nwith open(METADATA_PATH, 'wb') as f:\n    pickle.dump([\n        {'complaint_id': c['complaint_id'], 'product': c['product'], 'chunk': c['chunk']} for c in chunks",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "dimension",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "dimension = embeddings.shape[1]\nindex = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata\nfaiss.write_index(index, INDEX_PATH)\nwith open(METADATA_PATH, 'wb') as f:\n    pickle.dump([\n        {'complaint_id': c['complaint_id'], 'product': c['product'], 'chunk': c['chunk']} for c in chunks\n    ], f)\nprint(f\"FAISS index saved to {INDEX_PATH}\")",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "index",
+        "kind": 5,
+        "importPath": "src.chunking_embedding",
+        "description": "src.chunking_embedding",
+        "peekOfCode": "index = faiss.IndexFlatL2(dimension)\nindex.add(embeddings)\n# 6. Save index and metadata\nfaiss.write_index(index, INDEX_PATH)\nwith open(METADATA_PATH, 'wb') as f:\n    pickle.dump([\n        {'complaint_id': c['complaint_id'], 'product': c['product'], 'chunk': c['chunk']} for c in chunks\n    ], f)\nprint(f\"FAISS index saved to {INDEX_PATH}\")\nprint(f\"Metadata saved to {METADATA_PATH}\")",
+        "detail": "src.chunking_embedding",
+        "documentation": {}
+    },
+    {
+        "label": "load_vector_store",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)\n# Embed a query\ndef embed_query(model, query):",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "load_embedding_model",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)\n# Embed a query\ndef embed_query(model, query):\n    return model.encode([query])[0].astype('float32')\n# Retrieve top-k relevant chunks\ndef retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "embed_query",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def embed_query(model, query):\n    return model.encode([query])[0].astype('float32')\n# Retrieve top-k relevant chunks\ndef retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)\n    D, I = index.search(np.array([query_vec]), k)\n    retrieved = [metadata[i] for i in I[0]]\n    return retrieved",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "retrieve_chunks",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def retrieve_chunks(query, k=5):\n    index, metadata = load_vector_store()\n    embed_model = load_embedding_model()\n    query_vec = embed_query(embed_model, query)\n    D, I = index.search(np.array([query_vec]), k)\n    retrieved = [metadata[i] for i in I[0]]\n    return retrieved\n# Prompt template\ndef build_prompt(context_chunks, question):\n    context = '\\n---\\n'.join([c['chunk'] for c in context_chunks])",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "build_prompt",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def build_prompt(context_chunks, question):\n    context = '\\n---\\n'.join([c['chunk'] for c in context_chunks])\n    prompt = (\n        \"You are a financial analyst assistant for CrediTrust. \"\n        \"Your task is to answer questions about customer complaints. \"\n        \"Use the following retrieved complaint excerpts to formulate your answer. \"\n        \"If the context doesn't contain the answer, state that you don't have enough information.\\n\"\n        f\"Context:\\n{context}\\n\"\n        f\"Question: {question}\\n\"\n        \"Answer:\"",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "load_generator",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def load_generator():\n    return pipeline('text-generation', model='distilgpt2')\n# RAG pipeline function\ndef answer_question(question, k=5):\n    retrieved_chunks = retrieve_chunks(question, k)\n    prompt = build_prompt(retrieved_chunks, question)\n    generator = load_generator()\n    response = generator(prompt, num_return_sequences=1, max_new_tokens=128)[0]['generated_text']\n    # Extract only the answer part (after 'Answer:')\n    answer = response.split('Answer:')[-1].strip()",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "answer_question",
+        "kind": 2,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "def answer_question(question, k=5):\n    retrieved_chunks = retrieve_chunks(question, k)\n    prompt = build_prompt(retrieved_chunks, question)\n    generator = load_generator()\n    response = generator(prompt, num_return_sequences=1, max_new_tokens=128)[0]['generated_text']\n    # Extract only the answer part (after 'Answer:')\n    answer = response.split('Answer:')[-1].strip()\n    return {\n        'question': question,\n        'answer': answer,",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "INDEX_PATH",
+        "kind": 5,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "INDEX_PATH = 'vector_store/faiss_index.bin'\nMETADATA_PATH = 'vector_store/metadata.pkl'\nEMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "METADATA_PATH",
+        "kind": 5,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "METADATA_PATH = 'vector_store/metadata.pkl'\nEMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    },
+    {
+        "label": "EMBEDDING_MODEL_NAME",
+        "kind": 5,
+        "importPath": "src.rag_pipeline",
+        "description": "src.rag_pipeline",
+        "peekOfCode": "EMBEDDING_MODEL_NAME = 'all-MiniLM-L6-v2'\n# Load FAISS index and metadata\ndef load_vector_store():\n    index = faiss.read_index(INDEX_PATH)\n    with open(METADATA_PATH, 'rb') as f:\n        metadata = pickle.load(f)\n    return index, metadata\n# Load embedding model\ndef load_embedding_model():\n    return SentenceTransformer(EMBEDDING_MODEL_NAME)",
+        "detail": "src.rag_pipeline",
+        "documentation": {}
+    }
+]
