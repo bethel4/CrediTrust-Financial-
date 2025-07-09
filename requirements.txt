@@ -4,3 +4,8 @@ matplotlib
 seaborn
 scikit-learn
 jupyter
+faiss-cpu
+sentence-transformers
+langchain
+absl-py
+transformers
