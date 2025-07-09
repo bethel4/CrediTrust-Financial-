@@ -49,14 +49,14 @@ def build_prompt(context_chunks, question):
 
 # Generator (LLM) - using Hugging Face pipeline (default: distilbert-base-uncased, can be replaced)
 def load_generator():
-    return pipeline('text-generation', model='distilgpt2')
+    return pipeline('text-generation', model='distilgpt2', max_length=256)
 
 # RAG pipeline function
 def answer_question(question, k=5):
     retrieved_chunks = retrieve_chunks(question, k)
     prompt = build_prompt(retrieved_chunks, question)
     generator = load_generator()
-    response = generator(prompt, num_return_sequences=1, max_new_tokens=128)[0]['generated_text']
+    response = generator(prompt, num_return_sequences=1)[0]['generated_text']
     # Extract only the answer part (after 'Answer:')
     answer = response.split('Answer:')[-1].strip()
     return {
@@ -66,11 +66,9 @@ def answer_question(question, k=5):
     }
 
 # Example usage (uncomment to test)
-if __name__ == '__main__':
-    question = input("Enter your question: ")
-    result = answer_question(question, k=5)
-    print("Question:", result['question'])
-    print("Answer:", result['answer'])
-    print("Top Retrieved Sources:")
-    for src in result['retrieved_sources'][:2]:
-        print("-", src[:200], "...")
+# if __name__ == '__main__':
+#     q = "What are common issues with money transfers?"
+#     result = answer_question(q)
+#     print("Question:", result['question'])
+#     print("Answer:", result['answer'])
+#     print("Sources:", result['retrieved_sources'])
